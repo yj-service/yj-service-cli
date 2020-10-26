@@ -23,7 +23,7 @@ program.command("add <service-name>")
               console.error(chalk.red('该服务已存在'));
             }else{
                 const spinner = ora('开始生成...\n');
-               // spinner.start();
+                spinner.start();
                 create(name,spinner,program);
             }
         }
