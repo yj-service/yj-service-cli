@@ -6,6 +6,7 @@ const program =require('commander');
 const ora = require('ora');
 const chalk = require('chalk');
 const create = require('./package-add');
+const listAllService = require('./package-list');
 
 //显示版本号
 const version = require("./../package.json").version;
@@ -25,7 +26,8 @@ program.command("add <service-name>").description('use to create a service')
             if(isExists){
               console.error(chalk.red('该服务已存在'));
             }else{
-                const spinner = ora('开始生成...\n');
+                const spinner = ora();
+                spinner.text  = '开始生成...';
                 spinner.start();
                 create(name,spinner,servicePath);
             }
@@ -34,13 +36,13 @@ program.command("add <service-name>").description('use to create a service')
 
 //显示所有服务
 program.command("list").description('list all services')
-       .action(()=>{
-          //读取services.json文件
-         
-       })      
-//打包项目
-program.command("build <service-name>").description('build service <service-name>')
        .action((name)=>{
           //读取services.json文件
-       })           
+          listAllService(name);
+       })      
+//打包项目
+program.command("build <service-name>").description('todo:build service <service-name>')
+       .action((name)=>{
+          //读取services.json文件
+       })              
 program.parse(process.argv);

@@ -1,0 +1,14 @@
+{
+  "demo": {
+    "name": "demo",
+    "path": "packages\\demo\\index.js",
+    "version": "1.0.0",
+    "docPath": "packages\\demo\\README.md"
+  },
+  "demo1": {
+    "name": "demo1",
+    "path": "packages\\demo1\\index.js",
+    "version": "1.0.0",
+    "docPath": "packages\\demo1\\README.md"
+  }
+}

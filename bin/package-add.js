@@ -1,6 +1,7 @@
 const chalk =require('chalk');
 const download = require('download-git-repo');
 const path = require('path');
+const fs = require('fs');
 const fse = require('fs-extra');
 const url = 'https://github.com:yj-service/yj-service-cli#master';
 module.exports = function(name,spinner,servicePath){
@@ -18,7 +19,7 @@ module.exports = function(name,spinner,servicePath){
                 if(err){
                     console.error(chalk.red('移动失败'))
                 }
-                fse.remove(servicePath+'\\template');
+                fse.removeSync(servicePath+'\\template');
                 createServiceJson(name,servicePath);
                 spinner.succeed(`服务 ${name} 已生成`); 
             })
@@ -34,24 +35,41 @@ function createServiceJson(name,servicePath){
     // console.log(path.resolve(__dirname))
     const rootPath = path.join(__dirname,'../');
     const entryPath = path.join(servicePath,'index.js');
-    const version = fse.readJsonSync(path.join(servicePath,'package.json'));    
-    console.log(version)
+    const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));  
+    const version = pkgJson.version;  
     const docPath =path.join(servicePath,'README.md');
-    console.log('rootPath',rootPath)
-    console.log('entryPath',entryPath)
-    console.log('version',version)
-    console.log('docPath',docPath)
-    // fse.outputJSON(rootPath+'/service.json',
-    // {
-    //   [name]:{
-    //       name:name,
-    //       path:path.join(servicePath,'index.js'),
-    //       version:require(servicePath+'\\package.json').version,
-    //       docPath:path.join(servicePath,'README.md')
-    //   }
-    // },(err)=>{ 
-    //    if(err){
-    //      console.error(chalk.red(err))
-    //    }
-    // })
+    let service = 
+        {
+            [name]: {
+                name:pkgJson.name?pkgJson.name : name,
+                path:getRelativePath(entryPath,'packages'),
+                version:version,
+                docPath:getRelativePath(docPath,'packages')
+            }
+        }
+    if(fs.existsSync(rootPath+'/service.json')){
+        const serviceJson = fse.readJsonSync(path.join(rootPath,'service.json'));
+        if(serviceJson){
+           service = {
+               ...service,
+               ...serviceJson,
+           }
+        }
+    }
+    fse.outputJSON(rootPath+'/service.json',service,(err)=>{ 
+       if(err){
+         console.error(chalk.red(err))
+       }
+    })
+}
+/**
+ * @description 将绝对的地址
+ * @param {string} path 路径
+ * @param {string} pathFlag  要阶段的字符串
+ */
+function getRelativePath(path,pathFlag){
+  if(path.indexOf(pathFlag)!=-1){
+     return path.substring(path.indexOf(pathFlag))
+  } 
+  return path;
 }
