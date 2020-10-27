@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 const fs =require('fs');
+const fse = require('fs-extra');
 const path = require('path');
 const program =require('commander');
 const ora = require('ora');
 const chalk = require('chalk');
 const create = require('./package-add');
+
 //显示版本号
 const version = require("./../package.json").version;
-program.version(version,"-v,--version") ;  
+program.version(version,"-v,--version");  
 
 //创建一个service   
 program.command("add <service-name>").description('use to create a service')
@@ -30,4 +32,15 @@ program.command("add <service-name>").description('use to create a service')
         }
     })
 
+//显示所有服务
+program.command("list").description('list all services')
+       .action(()=>{
+          //读取services.json文件
+         
+       })      
+//打包项目
+program.command("build <service-name>").description('build service <service-name>')
+       .action((name)=>{
+          //读取services.json文件
+       })           
 program.parse(process.argv);
