@@ -33,7 +33,7 @@ module.exports = function(name,spinner,servicePath){
  */
 function createServiceJson(name,servicePath){
     // console.log(path.resolve(__dirname))
-    const rootPath = path.join(__dirname,'../');
+    const rootPath = path.join(process.cwd(),'../');
     const entryPath = path.join(servicePath,'index.js');
     const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));  
     const version = pkgJson.version;  

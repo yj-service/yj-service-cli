@@ -44,5 +44,6 @@ program.command("list").description('list all services')
 program.command("build <service-name>").description('todo:build service <service-name>')
        .action((name)=>{
           //读取services.json文件
+          console.log(__dirname,process.cwd())
        })              
 program.parse(process.argv);
