@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-  name: "",
+  name: "yj-service-demo",
 };
 </script>
