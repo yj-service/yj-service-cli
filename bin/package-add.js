@@ -52,7 +52,7 @@ function downloadTemplate(name,spinner,servicePath,answers){
                 }
                 fse.removeSync(servicePath+'\\template');
                 const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
-                fse.writeJSONSync(path.join(servicePath,'package.json'),{...pkgJson,...answers})
+                fse.writeJSONSync(path.join(servicePath,'package.json'),{...pkgJson,...answers},{spaces:2})
                 createServiceJson(name,servicePath,pkgJson);
                 spinner.succeed(`服务 ${name} 已生成`); 
             })
