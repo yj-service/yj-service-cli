@@ -23,7 +23,7 @@ npm install yj-service-cli -g
 npm i -g lerna
 ```
 
-### rebuild project,add vuepress and lerna.json vue.config.js  
+### for first create project use,rebuild project,add vuepress and lerna.json vue.config.js  
 ```
 yj-service-cli init
 ```

@@ -7,12 +7,14 @@ const chalk =require('chalk');
 const inquirer = require('inquirer')
 const url = 'https://github.com:yj-service/yj-service-cli#master';
 module.exports = function createPackage (name){
+    fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
     //判断是否已经存在
     const servicePath = path.resolve(process.cwd()+"\\packages\\"+name);
     const isExists = fs.existsSync(servicePath);
     if(isExists){
         console.error(chalk.red('该服务已存在'));
     }else{
+        
         inquirer.prompt([
             {
                 name:'description',
