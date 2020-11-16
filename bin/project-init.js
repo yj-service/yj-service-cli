@@ -7,6 +7,6 @@ const {spawn} = require("child_process")
  */
 module.exports = function initProject(){
     const cwd = process.cwd();
-    const initProcess = spawn("lerna init");
-    
+    const initProcess = spawn("cmd.exe");
+
 }
