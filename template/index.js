@@ -1,4 +1,5 @@
-import Vue from 'vue'
+import Vue from 'vue';
+import router from './router/index';
 import Index from "./pages/index";
 
 new Vue({
