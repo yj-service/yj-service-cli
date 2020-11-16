@@ -1,49 +1,49 @@
 #!/usr/bin/env node
-const fs =require('fs');
-const fse = require('fs-extra');
-const path = require('path');
 const program =require('commander');
-const ora = require('ora');
-const chalk = require('chalk');
-const create = require('./package-add');
-const listAllService = require('./package-list');
+const createPackage = require('./package-add');
+const listAllPackages = require('./package-list');
+const createProject = require('./project-create');
+const initProject = require('./project-init');
+const runPackage = require('./package-run');
+const buildPackage = require('./package-build');
 
 //显示版本号
 const version = require("./../package.json").version;
-program.version(version,"-v,--version");  
+program.version(version,"-v,--version");
+
+//创建一个项目
+program.command("create <project-name>").description("use to create vue project")
+        .action((name)=>{
+            createProject(name,program); 
+        }) 
+
+//对新建的项目进行init
+program.command("init").description("use to init project,add packages folder,install vue-press")
+        .action((name)=>{
+            initProject(name);
+        })         
 
 //创建一个service   
 program.command("add <service-name>").description('use to create a service')
-    .action((name,command)=>{
-        const currentDir = process.cwd().split('\\');
-        const len = currentDir.length;
-        if(currentDir[len-1] !== 'packages'){
-            console.error(chalk.red('切换到packages目录再使用 yj-service-cli add 创建新的模块'))
-        }else{
-            //判断是否已经存在
-            const servicePath = path.resolve(process.cwd()+"\\"+name);
-            const isExists = fs.existsSync(servicePath);
-            if(isExists){
-              console.error(chalk.red('该服务已存在'));
-            }else{
-                const spinner = ora();
-                spinner.text  = '开始生成...';
-                spinner.start();
-                create(name,spinner,servicePath);
-            }
-        }
-    })
+        .action((name)=>{
+            createPackage(name); 
+        })
 
 //显示所有服务
 program.command("list").description('list all services')
+        .action((name)=>{
+            listAllPackages(name);
+        })  
+       
+//运行开发环境
+program.command("dev <service-name>").description('todo:run service <service-name> on development env')
        .action((name)=>{
-          //读取services.json文件
-          listAllService(name);
-       })      
+          runPackage(name);
+       })          
+
 //打包项目
-program.command("build <service-name>").description('todo:build service <service-name>')
-       .action((name)=>{
-          //读取services.json文件
-          console.log(__dirname,process.cwd())
+program.command("build [service-name]").description('todo:build service [service-name]?')
+       .action((name)=>{      
+          buildPackage(name,program);
        })              
 program.parse(process.argv);

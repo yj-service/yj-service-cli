@@ -1,26 +1,52 @@
-## 创建脚手架
-
-### 新建项目
-``` 
-npm init //新建一个项目依赖
-
+### create a new project by vue-cli
 ```
-### package.json添加bin字段，创建bin文件夹和main.js文件，指向bin/main
-```
-"bin":{
-    "yj-service-cli":"main.js"
-}
+vue create <project-Name>    
 ```
 
+### set private registry and adduser
 ```
-#!/usr/bin/env node  //首行添加，让系统动态的去PATH目录中查找node来执行你的脚本文件
-```
-
-```
-npm link  //创建软链接至全局,可以全局使用yj-service-cli命令
+npm set registry http://yjsinopia.yjhealth.cn
+npm adduser --registry http://yjsinopia.yjhealth.cn
 ```
 
-### 安装依赖
+### switch registry
 ```
-npm install chalk commander download-git-repo inquirer ora request --save
+npm install -g nrm
+nrm add <registry> <url>  //add registry
+nrm use <registry>        //use registry
+```
+
+
+### install yj-service-cli and lerna global 
+```
+npm install yj-service-cli -g  
+npm i -g lerna
+```
+
+### rebuild project,add vuepress and lerna.json vue.config.js  
+```
+yj-service-cli init
+```
+
+### add a new service in the packages folder
+```
+yj-service-cli add <service-name>
+```
+
+### install service dependencies
+```
+lerna add <package>[@version] [--dev]
+lerna add <package>[@version] --scope=<service-name>
+```
+
+
+### publish a service
+```
+npm login
+lerna publish
+```
+
+### unpublish a existed service
+```
+npm unpublish <service-name> [--force]
 ```

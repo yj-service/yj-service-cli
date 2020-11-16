@@ -1,11 +1,40 @@
-const chalk =require('chalk');
 const download = require('download-git-repo');
 const path = require('path');
 const fs = require('fs');
 const fse = require('fs-extra');
+const ora = require('ora');
+const chalk =require('chalk');
+const inquirer = require('inquirer')
 const url = 'https://github.com:yj-service/yj-service-cli#master';
-module.exports = function(name,spinner,servicePath){
-    download(url,name,{
+module.exports = function createPackage (name){
+    //判断是否已经存在
+    const servicePath = path.resolve(process.cwd()+"\\packages\\"+name);
+    const isExists = fs.existsSync(servicePath);
+    if(isExists){
+        console.error(chalk.red('该服务已存在'));
+    }else{
+        inquirer.prompt([
+            {
+                name:'description',
+                message:"请输入服务描述:"
+            },
+            {
+                name:'author',
+                message:"请输入作者名称:"
+            }
+        ]).then((answers)=>{
+            const spinner = ora();
+            spinner.text  = '开始生成...';
+            spinner.start();
+            downloadTemplate(name,spinner,servicePath,answers);
+        })
+    }
+}
+/**
+ * @description 从git仓库下载模板文件
+ */
+function downloadTemplate(name,spinner,servicePath,answers){
+    download(url,servicePath,{
         filter:(item)=>{
            return item.type == 'file' && /^template/.test(item.path)
         }
@@ -20,7 +49,9 @@ module.exports = function(name,spinner,servicePath){
                     console.error(chalk.red('移动失败'))
                 }
                 fse.removeSync(servicePath+'\\template');
-                createServiceJson(name,servicePath);
+                const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
+                fse.writeJSONSync(path.join(servicePath,'package.json'),{...pkgJson,...answers})
+                createServiceJson(name,servicePath,pkgJson);
                 spinner.succeed(`服务 ${name} 已生成`); 
             })
         } 
@@ -32,11 +63,12 @@ module.exports = function(name,spinner,servicePath){
  * @description 生成一个service.json文件，记录readme.md name path等路径，生成文档
  */
 function createServiceJson(name,servicePath){
-    // console.log(path.resolve(__dirname))
-    const rootPath = path.join(process.cwd(),'../');
-    const entryPath = path.join(servicePath,'index.js');
-    const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));  
-    const version = pkgJson.version;  
+    const rootPath = path.join(process.cwd());
+    const entryPath = path.join(servicePath,'index.js');  
+    const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
+    const version = pkgJson.version;
+    const author =  pkgJson.author;
+    const description = pkgJson.description;
     const docPath =path.join(servicePath,'README.md');
     let service = 
         {
@@ -44,6 +76,8 @@ function createServiceJson(name,servicePath){
                 name:pkgJson.name?pkgJson.name : name,
                 path:getRelativePath(entryPath,'packages'),
                 version:version,
+                author:author,
+                description:description,
                 docPath:getRelativePath(docPath,'packages')
             }
         }

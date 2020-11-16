@@ -1,8 +1,10 @@
 {
-  "demo": {
-    "name": "demo",
-    "path": "packages\\demo\\index.js",
+  "demo1": {
+    "name": "demo1",
+    "path": "packages\\demo1\\index.js",
     "version": "1.0.0",
-    "docPath": "packages\\demo\\README.md"
+    "author": "yangxiaoqiang1",
+    "description": "demo1",
+    "docPath": "packages\\demo1\\README.md"
   }
 }
