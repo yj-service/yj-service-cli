@@ -1,7 +1,7 @@
 {
   "name": "yj-service-cli",
   "version": "1.0.1",
-  "description": "亿家健康cli",
+  "description": "亿家健康服务脚手架",
   "main": "index.js",
   "bin": {
     "yj-service-cli": "bin/main.js"
