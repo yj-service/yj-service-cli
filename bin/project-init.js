@@ -9,10 +9,7 @@ const {spawn} = require("child_process")
 module.exports = function initProject(){
     const currnetPath = process.cwd();
     addVuePressScript(currnetPath);
-    downloadInitTpl();
-
-    // const initProcess = spawn("cmd.exe");
-    
+    downloadInitTpl();  
 }
 /**
  * @description 为package.json添加vuepress命令
@@ -45,4 +42,10 @@ function addVuePressScript(currnetPath){
  */
 function downloadInitTpl(){
 
+}
+/**
+ * @description 执行一些npm安装命令和lerna init操作
+ */
+function runSomeScript(){
+   
 }
