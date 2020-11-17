@@ -1,6 +1,7 @@
 const fs = require("fs");
 const fse = require("fs-extra");
 const path = require("path");
+const ora = require('ora');
 const childProcess = require("child_process");
 const ProgressBar = require("progress");
 
@@ -53,6 +54,7 @@ function downloadInitTpl(){
  * @description 执行一些npm安装命令和lerna init操作
  */
 function runSomeScript(progressBar){
+    let spinner = ora();
     childProcess.exec('lerna init',(error, stdout, stderr)=>{
         progressBar.tick({
             token1:"lerna init\n"
@@ -61,16 +63,19 @@ function runSomeScript(progressBar){
             console.error(`检查是否全局安装lerna: ${error}`);
             return;
         }
-    }); 
-    childProcess.exec('npm install -D vuepress --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
         progressBar.tick({
             token1:"npm install vuepress\n",
         })
+        spinner.text  = '开始下载vuepress...';
+        spinner.start();
+    }); 
+    childProcess.exec('npm install -D vuepress --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
         if (error) {
-            console.error(`${error}`)
+            console.error(`${error}`);
+            spinner.stop();
         }
-        if(stdout){
-            console.log(stdout)
-        }
+        console.log(stdout);
+        spinner.text ="vuepress下载完成";
+        spinner.succeed();
     })
 }
