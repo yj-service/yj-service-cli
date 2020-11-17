@@ -51,6 +51,7 @@ function downloadTemplate(name,spinner,servicePath,answers){
                     console.error(chalk.red('移动失败'))
                 }
                 fse.removeSync(servicePath+'\\template');
+                fse.removeSync(servicePath+'\\template-init');
                 fse.removeSync(servicePath+'\\components\\index.vue');
                 const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
                 fse.writeJSONSync(path.join(servicePath,'package.json'),{...pkgJson,...answers},{spaces:2})
