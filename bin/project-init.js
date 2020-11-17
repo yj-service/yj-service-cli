@@ -1,21 +1,27 @@
 const fs = require("fs");
 const fse = require("fs-extra");
 const path = require("path");
-const {spawn} = require("child_process")
+const childProcess = require("child_process");
+const ProgressBar = require("progress");
 
 /**
  * @description 初始化项目时，初始lerna.json 安装vuepress vue.config.js
  */
 module.exports = function initProject(){
     const currnetPath = process.cwd();
-    addVuePressScript(currnetPath);
-    downloadInitTpl();  
+    const progressBar = new ProgressBar(":current/:total: :token1",{total:3,curr:0});
+    addVuePressScript(currnetPath,progressBar);
+    runSomeScript(progressBar); 
 }
 /**
  * @description 为package.json添加vuepress命令
  * @param {*} currnetPath 当前路径
+ * @param {*} progressBar 进度条
  */
-function addVuePressScript(currnetPath){
+function addVuePressScript(currnetPath,progressBar){
+    progressBar.tick({
+        token1:"package.json增加docs命令\n",
+    })
     const pkgPath = path.resolve(currnetPath+'\\package.json');
     const oldPkg = fse.readJsonSync(pkgPath);
     const scripts = [ 
@@ -46,6 +52,25 @@ function downloadInitTpl(){
 /**
  * @description 执行一些npm安装命令和lerna init操作
  */
-function runSomeScript(){
-   
+function runSomeScript(progressBar){
+    childProcess.exec('lerna init',(error, stdout, stderr)=>{
+        progressBar.tick({
+            token1:"lerna init\n"
+        })
+        if (error) {
+            console.error(`检查是否全局安装lerna: ${error}`);
+            return;
+        }
+    }); 
+    childProcess.exec('npm install -D vuepress --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
+        progressBar.tick({
+            token1:"npm install vuepress\n",
+        })
+        if (error) {
+            console.error(`${error}`)
+        }
+        if(stdout){
+            console.log(stdout)
+        }
+    })
 }
