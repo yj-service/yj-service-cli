@@ -11,15 +11,15 @@ const ProgressBar = require("progress");
 module.exports = function initProject(){
     const currnetPath = process.cwd();
     const progressBar = new ProgressBar(":current/:total: :token1",{total:3,curr:0});
-    addVuePressScript(currnetPath,progressBar);
-    runSomeScript(progressBar); 
+    addSomeScriptAndMkDir(currnetPath,progressBar);
+    runSomeScript(progressBar);
 }
 /**
  * @description 为package.json添加vuepress命令
  * @param {*} currnetPath 当前路径
  * @param {*} progressBar 进度条
  */
-function addVuePressScript(currnetPath,progressBar){
+function addSomeScriptAndMkDir(currnetPath,progressBar){
     progressBar.tick({
         token1:"package.json增加docs命令\n",
     })
@@ -43,12 +43,14 @@ function addVuePressScript(currnetPath,progressBar){
    fse.writeJSONSync(pkgPath,newpkg,{
        spaces:2
    });
+   mkSomeDirAndFile(currnetPath);
 }
 /**
  * @description 下载初始化模板
  */
-function downloadInitTpl(){
-
+function mkSomeDirAndFile(currnetPath){
+   fse.ensureFile(currnetPath+"/docs/.vuepress/config.js");
+   fse.ensureFile(currnetPath+"/vue.config.js");
 }
 /**
  * @description 执行一些npm安装命令和lerna init操作
