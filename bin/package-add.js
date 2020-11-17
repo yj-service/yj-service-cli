@@ -94,7 +94,7 @@ function createServiceJson(name,servicePath){
            }
         }
     }
-    fse.outputJSON(rootPath+'/service.json',service,(err)=>{ 
+    fse.writeJSON(rootPath+'/service.json',service,{spaces:2},(err)=>{ 
        if(err){
          console.error(chalk.red(err))
        }
