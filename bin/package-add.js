@@ -54,7 +54,8 @@ function downloadTemplate(name,spinner,servicePath,answers){
                 fse.removeSync(servicePath+'\\template-init');
                 fse.removeSync(servicePath+'\\components\\index.vue');
                 const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
-                fse.writeJSONSync(path.join(servicePath,'package.json'),{...pkgJson,...answers},{spaces:2})
+                const pkgName = `@yjservice/${name}`; //生成模块name
+                fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
                 createServiceJson(name,servicePath,pkgJson);
                 spinner.succeed(`服务 ${name} 已生成`); 
             })

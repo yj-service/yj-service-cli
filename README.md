@@ -39,6 +39,14 @@ lerna add <package>[@version] [--dev]
 lerna add <package>[@version] --scope=<service-name>
 ```
 
+### remove module dependencies 
+```
+lerna exec -- yarn remove <package>
+lerna exec -- npm uninstall <package>
+lerna exec --scope=<service-name> yarn remove <package>
+lerna exec --scope=<service-name> npm uninstall <package>
+```
+
 
 ### publish a service
 ```
