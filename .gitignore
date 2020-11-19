@@ -1,6 +1,4 @@
 /node_modules/
-/packages/
 /docs/
 /vue.config.js
-/lerna.json
 /service.json
