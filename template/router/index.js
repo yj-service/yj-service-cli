@@ -5,10 +5,7 @@ Vue.use(Router);
 const router = new Router({
     mode:"hash",
     routes:[
-        {
-            path:"/",
-            component:()=>import('../pages/index.vue'),
-        }
+       
     ]
 })
 
