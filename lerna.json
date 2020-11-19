@@ -1,6 +1,13 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
+  "command": {
+    "bootstrap": {
+      "hoist": true
+    },
+    "publish": {
+      "verifyAccess": false
+    }
+  },
+
   "version": "0.0.2"
 }
