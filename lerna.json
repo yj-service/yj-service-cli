@@ -1,13 +1,12 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "bootstrap": {
       "hoist": true
     },
     "publish": {
-      "verifyAccess": false
+      "verifyAccess": false,
+      "registry": "http://yjsinopia.yjhealth.cn"
     }
   },
   "useWorkspaces": true,
