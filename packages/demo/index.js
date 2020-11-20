@@ -7,7 +7,7 @@ new Vue({
   render: h => h(Index),
 }).$mount('#app')
 
-YjService.install = function (Vue) {
+Index.install = function (Vue) {
   Vue.component(Index.name, Index);
 }
-export default YjService;
+export default Index;

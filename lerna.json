@@ -1,7 +1,5 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "bootstrap": {
       "hoist": true
@@ -10,5 +8,6 @@
       "verifyAccess": false
     }
   },
+  "useWorkspaces": true,
   "version": "0.0.4"
 }
