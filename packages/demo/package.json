@@ -3,5 +3,7 @@
   "version": "0.0.6",
   "main": "main.js",
   "description": "",
-  "author": ""
+  "author": "",
+  "gitHead": "3ec5095650dcd554f82ffdc7f1968f2eb6af347d",
+  "license": "ISC"
 }
