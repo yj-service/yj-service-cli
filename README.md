@@ -58,3 +58,6 @@ lerna publish
 ```
 npm unpublish <service-name> [--force]
 ```
+
+### add emoji when git commit
+[https://blog.csdn.net/jackiedyh/article/details/109309743](https://blog.csdn.net/jackiedyh/article/details/109309743)
