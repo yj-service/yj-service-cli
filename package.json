@@ -9,7 +9,6 @@
   "publishConfig":{
     "access":"public"
   },
-  "private":true,
   "workspaces":[
     "packages/*"
   ],
