@@ -1,9 +1,9 @@
 {
-  "name": "@yjservice/demo",
+  "name": "demo",
   "version": "0.0.13",
   "main": "main.js",
   "description": "",
   "author": "yangxiaoqiang",
   "license": "ISC",
-  "gitHead": "f0695b45878687a4b730013fadefbeafcae5383b"
+  "gitHead": "5aa2898235dcb2006126ec4b3581470553c5df91"
 }
