@@ -12,6 +12,7 @@ function downloadTpl(url,destination,filter,success,error){
     console.log(url,destination,filter,success,error)
     download(url,destination,{
         filter:(item)=>{
+            console.log(item)
            return filter ? item.type == 'file' && new RegExp(filter).test(item.path):item.type == 'file';
         }
     },(err)=>{
