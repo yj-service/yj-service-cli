@@ -51,7 +51,7 @@ lerna exec --scope=<service-name> npm uninstall <package>
 ### publish a service
 ```
 npm login
-lerna publish
+lerna publish [from-git/from-package]
 ```
 
 ### unpublish a existed service
