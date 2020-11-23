@@ -5,14 +5,24 @@ const ora = require('ora');
 const childProcess = require("child_process");
 const ProgressBar = require("progress");
 
+const {downloadTpl} = require('./util');
+const {gitRepository} = require('./config')
+
+
 /**
  * @description 初始化项目时，初始lerna.json 安装vuepress vue.config.js
  */
 module.exports = function initProject(){
     const currnetPath = process.cwd();
+    console.log('currnetPath',currnetPath)
     const progressBar = new ProgressBar(":current/:total: :token1",{total:3,curr:0});
-    addSomeScriptAndMkDir(currnetPath,progressBar);
-    runSomeScript(progressBar);
+    //addSomeScriptAndMkDir(currnetPath,progressBar);
+    //runSomeScript(progressBar);
+    
+    downloadTpl(gitRepository,currnetPath,'template-init',()=>{
+        console.log('下载成功')
+    })
+ 
 }
 /**
  * @description 为package.json添加vuepress命令
@@ -21,7 +31,7 @@ module.exports = function initProject(){
  */
 function addSomeScriptAndMkDir(currnetPath,progressBar){
     progressBar.tick({
-        token1:"package.json增加docs命令\n",
+        token1:"package.json增加命令\n",
     })
     const pkgPath = path.resolve(currnetPath+'\\package.json');
     const oldPkg = fse.readJsonSync(pkgPath);
@@ -35,15 +45,22 @@ function addSomeScriptAndMkDir(currnetPath,progressBar){
             value:"vuepress build docs"
         }
     ]
+    const husky = {
+        "husky":{
+            "hooks":{
+                "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+            }
+        }
+    }
     let docScripts ={};
     for(let index in scripts){
         docScripts[scripts[index].name] = scripts[index].value;
     }
-   const newpkg =  Object.assign(oldPkg,{scripts:{...oldPkg.scripts,...docScripts}});
+   const newpkg =  Object.assign(oldPkg,{scripts:{...oldPkg.scripts,...docScripts}},{...husky});
    fse.writeJSONSync(pkgPath,newpkg,{
        spaces:2
    });
-   mkSomeDirAndFile(currnetPath);
+   //mkSomeDirAndFile(currnetPath);
 }
 /**
  * @description 下载初始化模板
@@ -66,18 +83,18 @@ function runSomeScript(progressBar){
             return;
         }
         progressBar.tick({
-            token1:"npm install vuepress\n",
+            token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky\n",
         })
-        spinner.text  = '开始下载vuepress...';
+        spinner.text  = '开始下载...';
         spinner.start();
     }); 
-    childProcess.exec('npm install -D vuepress --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
+    childProcess.exec('npm install -D vuepress @commitlint/cli @commitlint/config-conventional husky --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
         if (error) {
             console.error(`${error}`);
             spinner.stop();
         }
         console.log(stdout);
-        spinner.text ="vuepress下载完成";
+        spinner.text ="下载完成";
         spinner.succeed();
     })
 }

@@ -1,3 +1,3 @@
-module.exports = config = {
-    gitRepoUrl:'https://github.com:yj-service/yj-service-cli#master'
+module.exports =  {
+    gitRepository:'https://github.com:yj-service/yj-service-cli#master'
 }

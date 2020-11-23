@@ -6,10 +6,10 @@
   "bin": {
     "yj-service-cli": "bin/main.js"
   },
-  "publishConfig":{
-    "access":"public"
+  "publishConfig": {
+    "access": "public"
   },
-  "workspaces":[
+  "workspaces": [
     "packages/*"
   ],
   "scripts": {
@@ -30,6 +30,14 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.3.0",
+    "vuepress": "^1.7.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
