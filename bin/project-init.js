@@ -67,10 +67,9 @@ function addSomeScript(currnetPath,progressBar){
         }
     }
     const otherConfig = {
-        "workspaces":["packages/*"],
         "publishConfig": {
             "access": "public"
-          },
+        }
     }
     let docScripts ={};
     for(let index in scripts){
