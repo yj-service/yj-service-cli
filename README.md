@@ -59,5 +59,7 @@ lerna publish [from-git/from-package]
 npm unpublish <service-name> [--force]
 ```
 
+### git version must >2.13.0
+
 ### add emoji when git commit
 [https://blog.csdn.net/jackiedyh/article/details/109309743](https://blog.csdn.net/jackiedyh/article/details/109309743)
