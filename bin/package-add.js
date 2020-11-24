@@ -10,7 +10,6 @@ const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
 
 module.exports = function createPackage (name,argv){
-    console.log('dddddd')
     fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
     //判断服务是否已经存在
     const servicePath = path.resolve(process.cwd()+"\\packages\\"+name);
