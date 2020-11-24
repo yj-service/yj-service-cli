@@ -14,7 +14,7 @@ const {gitRepository} = require('./config');
  */
 module.exports = function initProject(){
     const currnetPath = process.cwd();
-    const progressBar = new ProgressBar(":current/:total: :token1",{total:4,curr:0});
+    const progressBar = new ProgressBar("[:current/:total]: :token1",{total:4,curr:0});
     progressBar.tick({
         token1:"下载配置文件\n",
     })
@@ -69,7 +69,8 @@ function addSomeScript(currnetPath,progressBar){
     const otherConfig = {
         "publishConfig": {
             "access": "public"
-        }
+        },
+        "workspaces": ["packages/*"]
     }
     let docScripts ={};
     for(let index in scripts){
