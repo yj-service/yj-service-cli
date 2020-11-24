@@ -86,7 +86,6 @@ function createCleanService(name,servicePath,answers){
         "main":"src/index.js",
         ...answers,
     }
-    console.log('初始化')
     fse.writeJSONSync(path.join(servicePath,'package.json'),{...config},{spaces:2});
 }
 
