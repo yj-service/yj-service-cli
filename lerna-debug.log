@@ -1,8 +1,0 @@
-28 error Error: Command failed: git add -- packages/demo/package.json lerna.json
-28 error The following paths are ignored by one of your .gitignore files:
-28 error lerna.json
-28 error packages
-28 error Use -f if you really want to add them.
-28 error
-28 error     at makeError (C:\Users\yangxiaoqiang\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:174:9)
-28 error     at Promise.all.then.arr (C:\Users\yangxiaoqiang\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:278:16)
