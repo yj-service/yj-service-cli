@@ -13,7 +13,6 @@ const {gitRepository} = require('./config');
  * @description 初始化项目时，初始lerna.json 安装vuepress vue.config.js
  */
 module.exports = function initProject(){
-    console.log('1')
     const currnetPath = process.cwd();
     const progressBar = new ProgressBar(":current/:total: :token1",{total:4,curr:0});
     progressBar.tick({
