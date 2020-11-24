@@ -7,7 +7,6 @@ const ProgressBar = require("progress");
 
 const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
-const { rejects } = require("assert");
 
 
 /**
@@ -30,6 +29,7 @@ module.exports = function initProject(){
             spinner.text ="下载完成";
             spinner.succeed();
             fse.removeSync(currnetPath+'\\template-init');
+            fse.removeSync(currnetPath+'\\src');
             addSomeScript(currnetPath,progressBar);
             runSomeScript(progressBar);
         })

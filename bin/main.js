@@ -23,9 +23,9 @@ program.command("init").description("use to init project,add packages folder,ins
         })         
 
 //创建一个service   
-program.command("add <service-name>").description('use to create a service')
+program.command("add <service-name>").description('use to create a service').option('-c')
         .action((name)=>{
-            createPackage(name); 
+            createPackage(name,process.argv); 
         })
 
 //显示所有服务

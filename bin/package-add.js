@@ -9,7 +9,7 @@ const inquirer = require('inquirer')
 const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
 
-module.exports = function createPackage (name){
+module.exports = function createPackage (name,argv){
     fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
     //判断服务是否已经存在
     const servicePath = path.resolve(process.cwd()+"\\packages\\"+name);
@@ -28,6 +28,11 @@ module.exports = function createPackage (name){
                 message:"请输入作者名称:"
             }
         ]).then((answers)=>{
+            const isClean = argv.slice(4).length>0;
+            if(isClean){
+                createCleanService(name,servicePath,answers) 
+                return
+            }
             const spinner = ora();
             spinner.text  = '开始生成...';
             spinner.start();
@@ -55,6 +60,7 @@ function downloadTemplate(name,spinner,servicePath,answers){
             const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
             const pkgName = `yj-service-${name}`; //生成模块name
             fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
+            
             createServiceJson(name,servicePath,pkgJson);
             spinner.succeed(`服务 ${name} 已生成`); 
         })
@@ -63,6 +69,26 @@ function downloadTemplate(name,spinner,servicePath,answers){
         spinner.stop(); 
     })
 }
+/**
+ * @description 生成简单项目，配置rollup打包
+ * @param {*} name 
+ * @param {*} servicePath 
+ * @param {*} answers
+ */
+function createCleanService(name,servicePath,answers){
+    const pkgName = `yj-${name}`;
+    fse.ensureFileSync(servicePath+'\\package.json'); 
+    fse.ensureFileSync(servicePath+'\\src\\index.js');
+    const config = {
+        "name":pkgName,
+        "version":"0.0.1",
+        "license": "ISC",
+        "main":"src/index.js",
+        ...answers,
+    }
+    fse.writeJSONSync(path.join(servicePath,'package.json'),{...config},{spaces:2});
+}
+
 /**
  * @param {string} name 服务名称
  * @param {string} servicePath 服务路径
