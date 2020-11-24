@@ -9,6 +9,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vuepress dev docs",
@@ -32,10 +37,5 @@
     "@commitlint/config-conventional": "^11.0.0",
     "husky": "^4.3.0",
     "vuepress": "^1.7.1"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
-    }
   }
 }
