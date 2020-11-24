@@ -1,0 +1,8 @@
+{
+  "name": "yj-demo1",
+  "version": "0.0.1",
+  "license": "ISC",
+  "main": "src/index.js",
+  "description": "demo1",
+  "author": "yangxiaoqiang"
+}
