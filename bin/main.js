@@ -19,7 +19,6 @@ program.command("create <project-name>").description("use to create vue project"
 //对新建的项目进行init
 program.command("init").description("use to init project,add packages folder,install vue-press")
         .action(()=>{
-            console.log('init')
             initProject();
         })         
 

@@ -1,12 +1,4 @@
 {
-  "demo2": {
-    "name": "demo2",
-    "path": "packages\\demo2\\index.js",
-    "version": "1.0.0",
-    "author": "",
-    "description": "",
-    "docPath": "packages\\demo2\\README.md"
-  },
   "demo1": {
     "name": "demo1",
     "path": "packages\\demo1\\index.js",
@@ -14,6 +6,14 @@
     "author": "yangxiaoqiang1",
     "description": "demo1",
     "docPath": "packages\\demo1\\README.md"
+  },
+  "demo2": {
+    "name": "demo2",
+    "path": "packages\\demo2\\index.js",
+    "version": "1.0.0",
+    "author": "",
+    "description": "",
+    "docPath": "packages\\demo2\\README.md"
   },
   "demo": {
     "name": "demo",

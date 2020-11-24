@@ -5,7 +5,10 @@ const fse = require('fs-extra');
 const ora = require('ora');
 const chalk =require('chalk');
 const inquirer = require('inquirer')
-const url = 'https://github.com:yj-service/yj-service-cli#master';
+
+const {downloadTpl} = require('./util');
+const {gitRepository} = require('./config');
+
 module.exports = function createPackage (name){
     fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
     //判断服务是否已经存在
@@ -34,33 +37,31 @@ module.exports = function createPackage (name){
 }
 /**
  * @description 从git仓库下载模板文件
+ * @param {*} name 
+ * @param {*} spinner 
+ * @param {*} servicePath 
+ * @param {*} answers 
  */
 function downloadTemplate(name,spinner,servicePath,answers){
-    download(url,servicePath,{
-        filter:(item)=>{
-           return item.type == 'file' && /^template/.test(item.path)
-        }
-    },(err)=>{
-        if(err){
-            console.error(chalk.red(err)+"\n");
-            spinner.stop(); 
-        }else{
-            spinner.text = '正在下载模板...'
-            fse.copy(servicePath+'\\template',servicePath,(err)=>{
-                if(err){
-                    console.error(chalk.red('移动失败'))
-                }
-                fse.removeSync(servicePath+'\\template');
-                fse.removeSync(servicePath+'\\template-init');
-                fse.removeSync(servicePath+'\\components\\index.vue');
-                const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
-                const pkgName = `yj-service-${name}`; //生成模块name
-                fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
-                createServiceJson(name,servicePath,pkgJson);
-                spinner.succeed(`服务 ${name} 已生成`); 
-            })
-        } 
-   })
+    downloadTpl(gitRepository,servicePath,'template',()=>{
+        spinner.text = '正在下载模板...'
+        fse.copy(servicePath+'\\template',servicePath,(err)=>{
+            if(err){
+                console.error(chalk.red('移动失败'))
+            }
+            fse.removeSync(servicePath+'\\template');
+            fse.removeSync(servicePath+'\\template-init');
+            fse.removeSync(servicePath+'\\components\\index.vue');
+            const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
+            const pkgName = `yj-service-${name}`; //生成模块name
+            fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
+            createServiceJson(name,servicePath,pkgJson);
+            spinner.succeed(`服务 ${name} 已生成`); 
+        })
+    },()=>{
+        console.error(chalk.red(err)+"\n");
+        spinner.stop(); 
+    })
 }
 /**
  * @param {string} name 服务名称
