@@ -5,7 +5,6 @@ const fse = require('fs-extra');
 const ora = require('ora');
 const chalk =require('chalk');
 const inquirer = require('inquirer')
-
 const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
 

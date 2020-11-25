@@ -1,5 +1,4 @@
 const glob = require("glob");
-const { resolve } = require("path");
 const path = require("path");
 
 const buildModule = process.argv.splice(3);
@@ -31,10 +30,10 @@ module.exports = {
       resolve: {
         alias: alias
       },
-      output: {
-        library: `${name}-[name]`,
-        libraryTarget: 'umd',
-        jsonpFunction: `webpackJsonp_${name}`,
-      },
+      // output: {
+      //   library: `${name}-[name]`,
+      //   libraryTarget: 'umd',
+      //   jsonpFunction: `webpackJsonp_${name}`,
+      // },
     }
 }

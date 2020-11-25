@@ -70,7 +70,7 @@ function addSomeScript(currnetPath,progressBar){
         "publishConfig": {
             "access": "public"
         },
-        "workspaces": ["packages/*"]
+        "workspaces": ["packages/*"],
     }
     let docScripts ={};
     for(let index in scripts){
