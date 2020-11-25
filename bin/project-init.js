@@ -124,12 +124,12 @@ function runSomeScript(progressBar){
                         console.error(`${error3}`);
                         spinner.stop();
                     }
-                    console.log(stdout1+'\n\n'+stdout2+'\n\n'+stdout3);
+                    console.log(stdout2+'\n\n'+stdout3);
                     spinner.text ="下载完成";
                     spinner.succeed();
                 })     
             }else{
-                console.log(stdout1+'\n\n'+stdout2);
+                console.log(stdout2);
                 spinner.text ="下载完成";
                 spinner.succeed();
             }
