@@ -7,6 +7,7 @@ const chalk =require('chalk');
 const inquirer = require('inquirer')
 const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
+const childProcess = require("child_process");
 
 module.exports = function createPackage (name,argv){
     fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
@@ -32,7 +33,7 @@ module.exports = function createPackage (name,argv){
                 return
             }
             const spinner = ora();
-            spinner.text  = '开始生成...';
+            spinner.text  = '开始生成...\n';
             spinner.start();
             downloadTemplate(name,spinner,servicePath,answers);
           
@@ -58,7 +59,16 @@ function downloadTemplate(name,spinner,servicePath,answers){
             fse.removeSync(servicePath+'\\components\\index.vue');
             const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
             const config = require(process.cwd()+'\\.serviceConfig.js');
-            const pkgName = `${config.prefix || 'yj=service'}-${name}`; //生成模块name
+            let pkgName;
+            if(config){
+                if(config.prefix){
+                    pkgName = `${config.prefix}-${name}`
+                }else{
+                    pkgName = name;
+                }
+            }else{
+                console.error(chalk.red('读取配置失败'))
+            }
             fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
            //createServiceJson(name,servicePath,pkgJson);
             spinner.succeed(`服务 ${name} 已生成`); 

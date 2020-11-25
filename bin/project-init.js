@@ -99,26 +99,40 @@ function runSomeScript(progressBar){
         progressBar.tick({
             token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun\n",
         })
-        spinner.text  = '开始下载...'; 
+        spinner.text  = '开始下载...\n'; 
         spinner.start();
     }); 
     let p = new Promise((resolve,reject)=>{
-        childProcess.exec('npm i qiankun -S --registry=https://registry.npm.taobao.org',(error, stdout, stderr)=>{
-            if (error) {
-                reject(error)
+        childProcess.exec('npm install qiankun -S --registry=https://registry.npm.taobao.org',(error1, stdout1)=>{
+            if (error1) {
+                reject(error1)
             } 
-            resolve(true)
+            console.log(stdout1+'\n\n');
+            resolve(stdout1)
         })
     })
-    p.then(()=>{
-        childProcess.exec('npm install -D vuepress @commitlint/cli @commitlint/config-conventional husky --registry=https://registry.npm.taobao.org ',(error, stdout, stderr)=>{
-            if (error) {
-                console.error(`${error}`);
+    p.then((stdout1)=>{
+        childProcess.exec('npm install vuepress @commitlint/cli @commitlint/config-conventional husky -D  --registry=https://registry.npm.taobao.org',(error2, stdout2)=>{
+            if (error2) {
+                console.error(`${error2}`);
                 spinner.stop();
             }
-            console.log(stdout);
-            spinner.text ="下载完成";
-            spinner.succeed();
+            const config = require(process.cwd()+'\\.serviceConfig.js');
+            if(config.pcOrMobile == '1'){
+                childProcess.exec('npm install postcss-pxtorem -D --registry=https://registry.npm.taobao.org',(error3, stdout3)=>{
+                    if (error2) {
+                        console.error(`${error3}`);
+                        spinner.stop();
+                    }
+                    console.log(stdout1+'\n\n'+stdout2+'\n\n'+stdout3);
+                    spinner.text ="下载完成";
+                    spinner.succeed();
+                })     
+            }else{
+                console.log(stdout1+'\n\n'+stdout2);
+                spinner.text ="下载完成";
+                spinner.succeed();
+            }
         })
     })
 }

@@ -5,7 +5,8 @@
       "hoist": true
     },
     "publish": {
-      "registry": "http://yjsinopia.yjhealth.cn"
+      "registry": "http://yjsinopia.yjhealth.cn",
+      "allowBranch": "master"
     }
   },
   "useWorkspaces": false,
