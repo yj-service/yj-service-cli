@@ -93,12 +93,13 @@ function runSomeScript(progressBar){
         })
         if (error) {
             console.error(`检查是否全局安装lerna: ${error}`);
+            process.exit(1);
             return;
         }
         progressBar.tick({
             token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun\n",
         })
-        spinner.text  = '开始下载...';
+        spinner.text  = '开始下载...'; 
         spinner.start();
     }); 
     let p = new Promise((resolve,reject)=>{
