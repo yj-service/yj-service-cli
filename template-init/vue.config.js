@@ -3,6 +3,7 @@ const path = require("path");
 
 const buildModule = process.argv.splice(3);
 const isBuildModule = buildModule.length>0;
+let alias = {}
 function getEneries() {
     let entries = {};
     let alias = {};

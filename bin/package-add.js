@@ -35,6 +35,7 @@ module.exports = function createPackage (name,argv){
             spinner.text  = '开始生成...';
             spinner.start();
             downloadTemplate(name,spinner,servicePath,answers);
+          
         })
     }
 }
@@ -56,10 +57,10 @@ function downloadTemplate(name,spinner,servicePath,answers){
             fse.removeSync(servicePath+'\\template-init');
             fse.removeSync(servicePath+'\\components\\index.vue');
             const pkgJson = fse.readJsonSync(path.join(servicePath,'package.json'));
-            const pkgName = `yj-service-${name}`; //生成模块name
+            const config = require(process.cwd()+'\\.serviceConfig.js');
+            const pkgName = `${config.prefix || 'yj=service'}-${name}`; //生成模块name
             fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
-            
-            createServiceJson(name,servicePath,pkgJson);
+           //createServiceJson(name,servicePath,pkgJson);
             spinner.succeed(`服务 ${name} 已生成`); 
         })
     },()=>{
