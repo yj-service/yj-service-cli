@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import router from './router/index';
 import Index from "./pages/index";
+import api from "./api/index"
 let instance = null;
 
 function render(props = {}) {
   const { container } = props;
   instance = new Vue({
     router,
+    api,
     render: h => h(Index),
   }).$mount(container ? container.querySelector('#app') : '#app');
 }

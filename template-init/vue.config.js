@@ -14,8 +14,7 @@ function getEneries() {
         title:`${moduleName}`,
         entry:`packages/${moduleName}/index.js`,
         template:"public/index.html",
-        filename:filename,
-        chunks: ['chunk-vendors', 'chunk-common', 'index']
+        filename:filename
       };
       alias[`@${moduleName}`] = path.resolve(`package\\${moduleName}`)
     }
@@ -36,5 +35,16 @@ module.exports = {
       //   libraryTarget: 'umd',
       //   jsonpFunction: `webpackJsonp_${name}`,
       // },
+    },
+    //开发服务器配置
+    devServer:{
+      // 前端跨域代理
+      // proxy:{
+      //   '/api': {
+      //     target: 'url',
+      //     changeOrigin: true,
+      //     pathRewrite:{}
+      //   },
+      // }
     }
 }
