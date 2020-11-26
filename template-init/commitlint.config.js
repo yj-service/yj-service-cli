@@ -2,6 +2,7 @@ module.exports = {
     extends: ['@commitlint/config-conventional'],
     rules: {
         'type-enum': [2, 'always', [
+            'update',   //更新
             'build',    //构建提交 
             'ci',       //持续集成
             'chore',    //其他类型 

@@ -1,24 +1,26 @@
+### install nrm package to switch registry
+```
+npm install -g nrm
+nrm add <registry> <url>  //add registry eg:nrm add yj http://yjverdaccio.yjhealth.cn
+nrm use <registry>        //use registry eg:nrm use yj
+npm adduser               //adduser in registry
+```
+
+### if not use nrm you can set private registry and adduser like this
+```
+npm set registry http://yjverdaccio.yjhealth.cn
+npm adduser --registry http://yjverdaccio.yjhealth.cn
+```
+
 ### create a new project by vue-cli
 ```
+npm install -g @vue/cli
 vue create <project-Name>    
 ```
 
-### set private registry and adduser
-```
-npm set registry http://yjsinopia.yjhealth.cn
-npm adduser --registry http://yjsinopia.yjhealth.cn
-```
-
-### switch registry
-```
-npm install -g nrm
-nrm add <registry> <url>  //add registry
-nrm use <registry>        //use registry
-```
-
-
 ### install yj-service-cli and lerna global 
 ```
+nrm use <registry> or npm set registry http://yjverdaccio.yjhealth.cn
 npm install yj-service-cli -g  
 npm i -g lerna
 ```

@@ -1,6 +1,6 @@
 {
   "name": "yj-service-cli",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "亿家健康服务脚手架",
   "main": "index.js",
   "bin": {
@@ -30,7 +30,7 @@
     "ora": "^5.1.0",
     "progress": "^2.0.3"
   },
-  "repository": "http://yjsinopia.yjhealth.cn",
+  "repository": "http://yjverdaccio.yjhealth.cn",
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",

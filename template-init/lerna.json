@@ -5,7 +5,7 @@
       "hoist": true
     },
     "publish": {
-      "registry": "http://yjsinopia.yjhealth.cn",
+      "registry": "http://yjverdaccio.yjhealth.cn",
       "allowBranch": "master"
     }
   },
