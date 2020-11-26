@@ -69,9 +69,18 @@ function downloadTemplate(name,spinner,servicePath,answers){
             }else{
                 console.error(chalk.red('读取配置失败'))
             }
+           
             fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
            //createServiceJson(name,servicePath,pkgJson);
-            spinner.succeed(`服务 ${name} 已生成`); 
+           const appName = name.slice(0, 1).toUpperCase() + name.slice(1);
+           const filePath = servicePath+'\\index.js';
+           const fd = fs.openSync(filePath,'r+');
+           const fileData = fs.readFileSync(filePath,{encoding:'utf-8',flag:"r+"});
+           const newFileData = `${fileData}`.replace(/(Index)/,appName);
+           fs.writeFileSync(filePath,newFileData);
+         //  const fileData = fs.readFileSync(fd,'utf-8');
+           console.log('fileData\n',fileData)
+           spinner.succeed(`服务 ${name} 已生成`); 
         })
     },()=>{
         console.error(chalk.red(err)+"\n");

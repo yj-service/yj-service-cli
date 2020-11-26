@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import router from './router/index';
 import Index from "./pages/index";
-
-
 let instance = null;
 
 function render(props = {}) {
@@ -36,7 +34,7 @@ export async function unmount() {
 function storeTest(props) {
   props.onGlobalStateChange &&
     props.onGlobalStateChange(
-      (value, prev) => console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev),
+      (value, prev) => console.log(value, prev),
       true,
     );
   props.setGlobalState &&
