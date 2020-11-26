@@ -69,17 +69,20 @@ function downloadTemplate(name,spinner,servicePath,answers){
             }else{
                 console.error(chalk.red('读取配置失败'))
             }
-           
-            fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
-           //createServiceJson(name,servicePath,pkgJson);
+           fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
            const appName = name.slice(0, 1).toUpperCase() + name.slice(1);
            const filePath = servicePath+'\\index.js';
+           const filePath1 = servicePath+'\\pages\\index.vue';
            const fd = fs.openSync(filePath,'r+');
            const fileData = fs.readFileSync(filePath,{encoding:'utf-8',flag:"r+"});
-           const newFileData = `${fileData}`.replace(/(Index)/,appName);
+           const newFileData = `${fileData}`.replace(/Index/g,appName);
            fs.writeFileSync(filePath,newFileData);
-         //  const fileData = fs.readFileSync(fd,'utf-8');
-           console.log('fileData\n',fileData)
+           fs.closeSync(fd);
+           const fd1 = fs.openSync(filePath1,'r+');
+           const fileData1 = fs.readFileSync(filePath1,{encoding:'utf-8',flag:"r+"});
+           const newFileData1 = `${fileData1}`.replace(/yj-service-demo/g,pkgName);
+           fs.writeFileSync(filePath1,newFileData1);
+           fs.closeSync(fd1);
            spinner.succeed(`服务 ${name} 已生成`); 
         })
     },()=>{
