@@ -1,7 +1,6 @@
 const glob = require("glob");
 const path = require("path");
-
-const buildModule = process.argv.splice(3);
+const buildModule = process.argv.slice(5);
 const isBuildModule = buildModule.length>0;
 let alias = {}
 function getEneries() {
@@ -15,7 +14,8 @@ function getEneries() {
         title:`${moduleName}`,
         entry:`packages/${moduleName}/index.js`,
         template:"public/index.html",
-        filename:filename
+        filename:filename,
+        chunks: ['chunk-vendors', 'chunk-common', 'index']
       };
       alias[`@${moduleName}`] = path.resolve(`package\\${moduleName}`)
     }

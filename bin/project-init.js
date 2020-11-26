@@ -68,15 +68,15 @@ function addSomeScript(currnetPath,progressBar){
         },
         {
             name:"build:test",
-            value:"vue-cli-service build  --mode test"
+            value:"cross-env NODE_ENV=production vue-cli-service build  --mode test"
         },
         {
             name:"build:pre",
-            value:"vue-cli-service build  --mode pre"
+            value:"cross-env NODE_ENV=production vue-cli-service build   --mode pre"
         },
         {
             name:"build:prod",
-            value:"vue-cli-service build  --mode prod"
+            value:"cross-env NODE_ENV=production vue-cli-service build  --mode prod"
         },
         {
             name:"docs:dev",
@@ -104,7 +104,7 @@ function addSomeScript(currnetPath,progressBar){
     for(let index in scripts){
         docScripts[scripts[index].name] = scripts[index].value;
     }
-   const newpkg =  Object.assign(oldPkg,{scripts:{...oldPkg.scripts,...docScripts}},{...husky},{...otherConfig});
+   const newpkg =  Object.assign(oldPkg,{scripts:{...docScripts}},{...husky},{...otherConfig});
    fse.writeJSONSync(pkgPath,newpkg,{
        spaces:2
    });
@@ -125,7 +125,7 @@ function runSomeScript(progressBar){
             return;
         }
         progressBar.tick({
-            token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun\n",
+            token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun cross-env\n",
         })
         spinner.text  = '开始下载...\n'; 
         spinner.start();
@@ -140,7 +140,7 @@ function runSomeScript(progressBar){
         })
     })
     p.then((stdout1)=>{
-        childProcess.exec('npm install vuepress @commitlint/cli @commitlint/config-conventional husky -D  --registry=https://registry.npm.taobao.org',(error2, stdout2)=>{
+        childProcess.exec('npm install vuepress @commitlint/cli @commitlint/config-conventional husky cross-env -D  --registry=https://registry.npm.taobao.org',(error2, stdout2)=>{
             if (error2) {
                 console.error(`${error2}`);
                 spinner.stop();
