@@ -51,6 +51,34 @@ function addSomeScript(currnetPath,progressBar){
     const oldPkg = fse.readJsonSync(pkgPath);
     const scripts = [ 
         {
+            name:"serve:dev",
+            value:"vue-cli-service serve  --mode dev"
+        },
+        {
+            name:"serve:test",
+            value:"vue-cli-service serve  --mode test"
+        },
+        {
+            name:"serve:pre",
+            value:"vue-cli-service serve  --mode pre"
+        },
+        {
+            name:"serve:prod",
+            value:"vue-cli-service serve  --mode prod"
+        },
+        {
+            name:"build:test",
+            value:"vue-cli-service build  --mode test"
+        },
+        {
+            name:"build:pre",
+            value:"vue-cli-service build  --mode pre"
+        },
+        {
+            name:"build:prod",
+            value:"vue-cli-service build  --mode prod"
+        },
+        {
             name:"docs:dev",
             value:"vuepress dev docs"
         },
