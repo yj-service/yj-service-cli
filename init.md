@@ -15,5 +15,5 @@ npm link  //创建软链接至全局,可以全局使用yj-service-cli命令
 
 ### 安装依赖
 ```
-npm install chalk commander download-git-repo inquirer ora request --save
+npm install chalk commander download-git-repo inquirer ora --save
 ```
