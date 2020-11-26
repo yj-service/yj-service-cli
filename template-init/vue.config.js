@@ -1,6 +1,6 @@
 const glob = require("glob");
 const path = require("path");
-const buildModule = process.argv.slice(5);
+const buildModule = process.argv.slice(5,6);
 const isBuildModule = buildModule.length>0;
 let alias = {}
 function getEneries() {
