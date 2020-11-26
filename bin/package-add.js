@@ -7,7 +7,6 @@ const chalk =require('chalk');
 const inquirer = require('inquirer')
 const {downloadTpl} = require('./util');
 const {gitRepository} = require('./config');
-const childProcess = require("child_process");
 
 module.exports = function createPackage (name,argv){
     fse.ensureDirSync(process.cwd()+"\\packages");  //确保packages存在
