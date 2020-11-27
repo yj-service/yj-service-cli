@@ -125,13 +125,13 @@ function runSomeScript(progressBar){
             return;
         }
         progressBar.tick({
-            token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun cross-env\n",
+            token1:"npm install vuepress @commitlint/cli @commitlint/config-conventional husky  qiankun cross-env axios\n",
         })
         spinner.text  = '开始下载...\n'; 
         spinner.start();
     }); 
     let p = new Promise((resolve,reject)=>{
-        childProcess.exec('npm install qiankun -S --registry=https://registry.npm.taobao.org',(error1, stdout1)=>{
+        childProcess.exec('npm install qiankun axios -S --registry=https://registry.npm.taobao.org',(error1, stdout1)=>{
             if (error1) {
                 reject(error1)
             } 

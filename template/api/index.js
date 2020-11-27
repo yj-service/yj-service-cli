@@ -1,5 +1,4 @@
-export const crmUrl = `${process.env.VUE_APP_CRMURL}`;
 const api = {
-
+    getToken: "/h5/getToken"
 }
 export default api;

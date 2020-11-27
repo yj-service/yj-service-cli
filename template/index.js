@@ -2,7 +2,31 @@ import Vue from 'vue';
 import router from './router/index';
 import Index from "./pages/index";
 import api from "./api/index"
+import axios from "./util/request"
+import {getUrlParam,getToken} from "./util/common"
+
+Vue.prototype.$axios = axios;
+
 let instance = null;
+// 添加渠道id
+router.beforeEach((to, from, next) => {
+  if (!global.idSoftOrg) {
+    const idSoftOrg = getUrlParam(location.href, "idSoftOrg");
+    if (idSoftOrg) {
+      global.idSoftOrg = idSoftOrg || "";
+    }
+  }
+  if(!localStorage.token){
+    const idPi = getUrlParam(idPi);
+    localStorage.idPi = idPi;
+    getToken(localStorage.idPi).then(res => {
+      localStorage.token = res; 
+      next();
+    })  
+  }else{
+    next();
+  }
+})
 
 function render(props = {}) {
   const { container } = props;
