@@ -1,5 +1,6 @@
 import axois from "axios";
 import config from "./config";
+import {getToken} from "./common"
 
 axois.interceptors.request.use(
   config => {
@@ -18,11 +19,32 @@ axois.interceptors.request.use(
 );
 axois.interceptors.response.use(
   response => {
-    if(response){
-       Promise.resolve(response);   
+    //处理状态码为200，但接口异常的情况
+    if (response.data) {
+      return response;
+    }else if (response.data.code === "501") {
+      getToken().then(res => {
+        localStorage.setItem("token", res);
+      });
+    }else if(response.data.code === "502"){
+      //跳转页面，显示502系统维护界面
+    }else if(response.data.code === "404"){
+      //显示404 NOT_FOUND页面
+    }else{
+      //  
     }
   },
   error => {
+    // 处理服务器状态码不为200的情况,返回promise可以自定义处理,将alert换成其他toast组件
+    if (error.response.status) {
+      if (error.response) {
+        alert(error.response.data.message)
+      } else if (error.request) {
+        alert(error.request.data.message)
+      } else {
+        alert(error.message)
+      }
+    }
     return Promise.reject(error);
   }
 );

@@ -1,4 +1,4 @@
-import * as request from "./request"
+import request from "./request"
 import api from "../api/index"
 /**
  * @description 获取链接参数
@@ -21,6 +21,7 @@ export function getUrlParam(url, name) {
  */
 export function getToken(idPi) {
     return new Promise((resolve, reject) => {
+      console.log(request,api.getToken)
       request.post(api.getToken,{ idPi: idPi || localStorage.idPi}).then(
         res => {
           resolve(res.data.body);

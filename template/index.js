@@ -16,8 +16,9 @@ router.beforeEach((to, from, next) => {
       global.idSoftOrg = idSoftOrg || "";
     }
   }
+  //没有token时设置token
   if(!localStorage.token){
-    const idPi = getUrlParam(idPi);
+    const idPi = getUrlParam(location.href,"idPi");
     localStorage.idPi = idPi;
     getToken(localStorage.idPi).then(res => {
       localStorage.token = res; 
