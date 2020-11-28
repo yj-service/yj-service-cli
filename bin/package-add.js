@@ -68,6 +68,7 @@ function downloadTemplate(name,spinner,servicePath,answers){
             }else{
                 console.error(chalk.red('读取配置失败'))
             }
+           pkgName= pkgName.toLowerCase();
            fse.writeJSONSync(path.join(servicePath,'package.json'),{...{name:pkgName},...pkgJson,...answers},{spaces:2})
            const appName = name.slice(0, 1).toUpperCase() + name.slice(1);
            const filePath = servicePath+'\\index.js';
