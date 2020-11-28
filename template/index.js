@@ -6,6 +6,7 @@ import axios from "./util/request"
 import {getUrlParam,getToken} from "./util/common"
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$api = api;
 
 let instance = null;
 // 添加渠道id
@@ -33,7 +34,6 @@ function render(props = {}) {
   const { container } = props;
   instance = new Vue({
     router,
-    api,
     render: h => h(Index),
   }).$mount(container ? container.querySelector('#app') : '#app');
 }
