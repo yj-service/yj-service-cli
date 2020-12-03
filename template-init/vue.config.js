@@ -28,7 +28,10 @@ module.exports = {
     pages:isBuildModule ? {[buildModule]:pages[buildModule]} : pages,
     configureWebpack:{
       resolve: {
-        alias: alias
+        alias: {
+          '@':path.resolve(__dirname),
+          ...alias
+        }
       },
       // output: {
       //   library: `${name}-[name]`,
