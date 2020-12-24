@@ -1,5 +1,6 @@
 const glob = require("glob");
 const path = require("path");
+const { exit } = require("process");
 const buildModule = process.argv.slice(4,5);
 const isBuildModule = buildModule.length>0;
 let alias = {}
@@ -29,29 +30,43 @@ function getEneries() {
       return entries;
     }
 }
+/**
+ * @description 开发环境启动单页开发
+ */
+function getEntryWhenDev(){
+ if(process.env.NODE_ENV == 'production'){
+    return undefined
+ }else{
+    if(!process.env.npm_config_project){
+       console.error('缺少参数,执行 npm run serve:[env] --project=[projectName]\n\n')
+       exit()
+    }else{
+      return './'+ pages[process.env.npm_config_project].entry 
+    }
+ }
+}
 const pages = getEneries();
+const entry = getEntryWhenDev();
+
 module.exports = {
     lintOnSave:false,
     publicPath:process.env.NODE_ENV == 'production' ? "./" : "/",
     productionSourceMap:process.env.NODE_ENV == 'production' ? false : true,
     assetsDir:"static",
     outputDir:isBuildModule ? `dist/${buildModule}` : 'dist',
-    pages:pages,
+    pages:process.env.NODE_ENV == 'production' ? pages :undefined,
     configureWebpack:{
+      entry:entry,
       resolve: {
         alias: {
           '@':path.resolve(__dirname),
           ...alias  
         }
       },
-      // output: {
-      //   library: `[name]`,
-      //   libraryTarget: 'umd'
-      // },
       devServer:{
         headers:{
           'Access-Control-Allow-Origin':'*'
-        }
+        },
       // proxy:{
       //   '/api': {
       //     target: 'url',

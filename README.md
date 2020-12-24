@@ -61,6 +61,18 @@ lerna publish [from-git/from-package]
 npm unpublish <service-name> [--force]
 ```
 
+### build production
+```
+npm run build     //build all services
+npm run build [service-name]   //build one service
+```
+
+### run serve when development env
+```
+npm run serve:[env] --service=[service-name]
+```
+
+
 ### git version must >2.13.0
 
 ### add emoji when git commit
