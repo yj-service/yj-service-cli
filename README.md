@@ -63,8 +63,8 @@ npm unpublish <service-name> [--force]
 
 ### build production
 ```
-npm run build     //build all services
-npm run build [service-name]   //build one service
+npm run build:[env]     //build all services
+npm run build:[env] [service-name]   //build one service
 ```
 
 ### run serve when development env
