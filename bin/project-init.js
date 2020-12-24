@@ -52,31 +52,31 @@ function addSomeScript(currnetPath,progressBar){
     const scripts = [ 
         {
             name:"serve:dev",
-            value:"vue-cli-service serve  --mode dev"
+            value:"vue-cli-service serve  --mode=dev"
         },
         {
             name:"serve:test",
-            value:"vue-cli-service serve  --mode test"
+            value:"vue-cli-service serve  --mode=test"
         },
         {
             name:"serve:pre",
-            value:"vue-cli-service serve  --mode pre"
+            value:"vue-cli-service serve  --mode=pre"
         },
         {
             name:"serve:prod",
-            value:"vue-cli-service serve  --mode prod"
+            value:"vue-cli-service serve  --mode=prod"
         },
         {
             name:"build:test",
-            value:"cross-env NODE_ENV=production vue-cli-service build  --mode test"
+            value:"cross-env NODE_ENV=production vue-cli-service build  --mode=test"
         },
         {
             name:"build:pre",
-            value:"cross-env NODE_ENV=production vue-cli-service build   --mode pre"
+            value:"cross-env NODE_ENV=production vue-cli-service build   --mode=pre"
         },
         {
             name:"build:prod",
-            value:"cross-env NODE_ENV=production vue-cli-service build  --mode prod"
+            value:"cross-env NODE_ENV=production vue-cli-service build  --mode=prod"
         },
         {
             name:"docs:dev",

@@ -1,6 +1,8 @@
 import axois from "axios";
 import config from "./config";
+import { Toast } from 'vant'
 import {getToken} from "./common"
+import Router from '../router/index'
 
 axois.interceptors.request.use(
   config => {
@@ -20,15 +22,15 @@ axois.interceptors.request.use(
 axois.interceptors.response.use(
   response => {
     //处理状态码为200，但接口异常的情况
-    if (response.data) {
+    if (response.data.code == '200') {
       return response;
-    }else if (response.data.code === "501") {
-      getToken().then(res => {
-        localStorage.setItem("token", res);
-      });
-    }else if(response.data.code === "502"){
+    }else if (response.data.code == "500") {
+      Toast(response.data.msg || response.data.message)
+    }else if (response.data.code == "501") {
+      refreshCount()
+    }else if(response.data.code == "502"){
       //跳转页面，显示502系统维护界面
-    }else if(response.data.code === "404"){
+    }else if(response.data.code == "404"){
       //显示404 NOT_FOUND页面
     }else{
       //  
@@ -36,18 +38,44 @@ axois.interceptors.response.use(
   },
   error => {
     // 处理服务器状态码不为200的情况,返回promise可以自定义处理,将alert换成其他toast组件
-    if (error.response.status) {
+    if (error.response&&error.response.status) {
       if (error.response) {
-        alert(error.response.data.message)
+        if(error.response.data&&error.response.data.code === 404){
+          refreshCount()
+        }else {
+          Toast(error.response.data.message || error.response.data.msg)
+        }
       } else if (error.request) {
-        alert(error.request.data.message)
+        Toast(error.request.data.message)
       } else {
-        alert(error.message)
+        Toast(error.message)
       }
+    }else{
+      refreshCount()
     }
     return Promise.reject(error);
   }
 );
+/**
+ * @description 统计计数，错误5次以上就指向404
+ */
+function refreshCount(){
+  let count = 0;
+  if(localStorage.getTokenCount && localStorage.getTokenCount !== 'null' && localStorage.getTokenCount !== 'undefined'){
+    count = Number(localStorage.getTokenCount)+1
+  }
+  localStorage.getTokenCount = count;
+  if(Number(localStorage.getTokenCount < 5)){
+    getToken(localStorage.idPi).then(res => {
+      localStorage.getTokenCount = 0;
+      localStorage.setItem("token", res);
+      location.reload()
+    });
+  }else {
+    localStorage.getTokenCount = 0;
+    Router.replace({path:'/404'})
+  }
+}
 function httpRequest(method, url, data, configHeaders={}, baseURL) { 
   return axois({
     baseURL: baseURL ? baseURL : config.server + "/" + config.apiVersion,

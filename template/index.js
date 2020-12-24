@@ -4,6 +4,7 @@ import Index from "./pages/index";
 import api from "./api/index"
 import axios from "./util/request"
 import {getUrlParam,getToken} from "./util/common"
+import { goLogIn } from '@/common/js/login.js'
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$api = api;
@@ -11,15 +12,43 @@ Vue.prototype.$api = api;
 let instance = null;
 // 添加渠道id
 router.beforeEach((to, from, next) => {
+  const idPi = getUrlParam(location.href,"idPi");
+  const serviceCode = getUrlParam(location.href,"serviceCode");
+  const isPermission = getUrlParam(location.href,"isPermission");
+  const idPiOrg = getUrlParam(location.href,"idPiOrg");
+  const openId = getUrlParam(location.href,"openId");
+  if(isPermission&&isPermission!== localStorage.isPermission){
+    localStorage.isPermission = isPermission;
+  }
+  if(idPiOrg&&idPiOrg!== localStorage.idPiOrg){
+    localStorage.idPiOrg = idPiOrg;
+  }
+  if(openId&&openId!== localStorage.openId){
+    localStorage.openId = openId;
+  }
+  if(serviceCode&&serviceCode!== localStorage.serviceCode){
+    localStorage.serviceCode = serviceCode;
+  }
+  if(idPi&&idPi!== localStorage.idPi){
+    localStorage.idPi = idPi;
+  }
+  // 判断是否登录
+  if (!localStorage.idPi || localStorage.idPi === 'undefined' || localStorage.idPi === 'null') {
+    goLogIn({
+      required: true,
+      targetRedirect: location.href,
+      isPerfectInformation: false
+    })
+  }
   if (!global.idSoftOrg) {
     const idSoftOrg = getUrlParam(location.href, "idSoftOrg");
     if (idSoftOrg) {
       global.idSoftOrg = idSoftOrg || "";
     }
   }
+  document.title = to.meta&&to.meta.title || '';
   //没有token时设置token
   if(!localStorage.token){
-    const idPi = getUrlParam(location.href,"idPi");
     localStorage.idPi = idPi;
     getToken(localStorage.idPi).then(res => {
       localStorage.token = res; 
