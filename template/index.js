@@ -3,8 +3,7 @@ import router from './router/index';
 import Index from "./pages/index";
 import api from "./api/index"
 import axios from "./util/request"
-import {getUrlParam,getToken} from "./util/common"
-import { goLogIn } from '@/common/js/login.js'
+import {getUrlParam,getToken, goLogIn} from "./util/common"
 
 Vue.prototype.$axios = axios;
 Vue.prototype.$api = api;

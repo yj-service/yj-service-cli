@@ -1,5 +1,6 @@
 import request from "./request"
 import api from "../api/index"
+import { isWeChat, combineUrl } from 'yj-common-utils'
 /**
  * @description 获取链接参数
  * @param {*} url 
@@ -31,4 +32,27 @@ export function getToken(idPi) {
         }
       );
     });
+}
+
+/*
+ *@description: 登陆
+ *@author: Masc
+ *@date: 2020-10-28 16:10:16
+ *@variable1:
+*/
+export function goLogIn(data) {
+  const reg = /http[s]{0,1}:\/\/([\w.]+\/?)\S*/;
+  const ua = isWeChat()
+  if (ua) {
+    location.replace(combineUrl(`${process.env.VUE_APP_CRMURL}/yj-h5/index.html#/WXRight`, {
+      redirect: data.targetRedirect,
+      isPerfectInformation: data.isPerfectInformation
+    }))
+  } else {
+    jumpUrl(data)
+  }
+}
+
+function jumpUrl(item) {
+  location.replace(`${process.env.VUE_APP_CRMURL}/yj-h5-sso/index.html#/login?redirectUri=${encodeURIComponent(item.targetRedirect)}`)
 }

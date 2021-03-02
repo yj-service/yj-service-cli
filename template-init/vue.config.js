@@ -34,17 +34,17 @@ function getEneries() {
  * @description 开发环境启动单页开发
  */
 function getEntryWhenDev(){
- if(process.env.NODE_ENV == 'production'){
-    return undefined
- }else{
-    if(!process.env.npm_config_project){
-       console.error('缺少参数,执行 npm run serve:[env] --project=[projectName]\n\n')
-       exit()
-    }else{
-      return './'+ pages[process.env.npm_config_project].entry 
-    }
+  if(process.env.NODE_ENV == 'production'){
+     return undefined
+  }else{
+     if(!process.env.npm_config_service){
+        console.error('缺少参数,执行 npm run serve:[env] --service=[serviceName]\n\n')
+        exit()
+     }else{
+       return './'+ pages[process.env.npm_config_service].entry 
+     }
+  }
  }
-}
 const pages = getEneries();
 const entry = getEntryWhenDev();
 
