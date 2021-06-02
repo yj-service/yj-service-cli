@@ -4,6 +4,7 @@ const createPackage = require('./package-add');
 const listAllPackages = require('./package-list');
 const createProject = require('./project-create');
 const initProject = require('./project-init');
+const getConsultPackage = require('./getPackage')
 // const runPackage = require('./package-run');
 // const buildPackage = require('./package-build');
 //显示版本号
@@ -33,6 +34,13 @@ program.command("list").description('list all services')
         .action((name)=>{
             listAllPackages(name);
         })  
+        
+//获取咨询分包
+program.command("getConsultPackage").description('get consult package')
+        .alias('consult') 
+        .action(()=>{
+            getConsultPackage()
+        })          
          
 //运行开发环境
 // program.command("dev <service-name>").description('todo:run service <service-name> on development env')

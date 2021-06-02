@@ -25,7 +25,7 @@ function buildAll(){
 /**
  * @description 打包单个服务
  */
-function buildSingleService(name){
+function buildSingleService(name){ 
     const rootPath = path.join(process.cwd(),'../');
     const vueConfig = rootPath+'/vue.config.js';
     fse.ensureFileSync(vueConfig)

@@ -1,5 +1,15 @@
-const {spawn} = require("child_process");
+const inquirer = require('inquirer')
 module.exports = function createProject(projectName,program){
-    const cwd = process.cwd();
-   // childProcess.exec(`vue create projectName`); 
+    inquirer.prompt([
+        {
+            type:"list",
+            name:"select vue version",
+            default:0,
+            choices:['2.x','3.x']
+        }
+    ]).then(answers=>{
+        console.log(answers)
+    }).catch(error=>{
+
+    })
 }
