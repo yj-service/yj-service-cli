@@ -72,6 +72,12 @@ npm run build:[env] [service-name]   //build one service
 npm run serve:[env] --service=[service-name]
 ```
 
+### get consult package
+```
+1、yj-service-cli getConsultPackage | consult
+2、select a version
+```
+
 
 ### git version must >2.13.0
 
