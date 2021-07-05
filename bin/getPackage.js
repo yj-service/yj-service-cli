@@ -5,7 +5,7 @@ const compressing = require('compressing')
 const choices = [ 
     {key:"test",url:"http://yjhihis-test.yjhealth.cn/yj-consult-front/yjConsult.zip",name:"测试"},
     {key:"pre",url:"http://pre-hicrm.healthyj.cn/yj-consult-front/yjConsult.zip",name:"预发布"},
-    {key:"master",url:"http://crm.healthyj.cn/yj-consult-front/yjConsult.zip",name:"正式"}
+    {key:"prod",url:"http://crm.healthyj.cn/yj-consult-front/yjConsult.zip",name:"正式"}
 ];
 
 module.exports = function getConsultPackage(){

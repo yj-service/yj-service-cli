@@ -9,6 +9,8 @@ const getConsultPackage = require('./getPackage')
 // const buildPackage = require('./package-build');
 //显示版本号
 const version = require("./../package.json").version;
+const createStaticHtml = require('./createStaticHtml');
+const chalk = require('chalk');
 program.version(version,"-v,--version");
 
 //创建一个项目
@@ -42,6 +44,18 @@ program.command("getConsultPackage").description('get consult package')
             getConsultPackage()
         })          
          
+//图片生成静态页面
+program.command("createHtml <inputDir> <title> [outputDir]").description('create static html by imgs')
+        .alias('html') 
+        .action(()=>{
+            const params = process.argv.slice(3)
+            if(params.length == 0){
+                console.error(chalk.red('至少提供输入文件夹名称'))
+                process.exit(0)
+            }else{
+                createStaticHtml(params)
+            }
+        })           
 //运行开发环境
 // program.command("dev <service-name>").description('todo:run service <service-name> on development env')
 //        .action((name)=>{

@@ -1,3 +1,29 @@
 module.exports =  {
     gitRepository:'https://github.com:yj-service/yj-service-cli#master',
+    server:{
+        test:{
+            host:"172.16.106.21",
+            port:"22",
+            username:"root",
+            password:"zRw#7twF8yMuivOf",
+            path:"/usr/local/nginx/html/h5/",
+            domin:"https://yjhihis-test.yjhealth.cn"
+        },
+        pre:{
+            host:"47.99.181.52",
+            port:"22",
+            username:"root",
+            password:"Y0JELNbLAdeZ",
+            path:"/usr/local/nginx/html/h5/",
+            domin:"https://pre-hicrm.healthyj.cn"
+        },
+        prod:{
+            host:"47.97.185.134",
+            port:"22",
+            username:"root",
+            password:"A99pF0rC@3sUpE!9pF6",
+            path:"/usr/local/nginx/html/h5/",
+            domin:"https://crm.healthyj.cn"
+        }
+    }
 }
