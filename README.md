@@ -78,6 +78,11 @@ npm run serve:[env] --service=[service-name]
 2、select a version
 ```
 
+### generate a static html by images
+path like this  a\b a.b a/b
+```
+yj-service-cli html <path> <title> [output]
+```
 
 ### git version must >2.13.0
 

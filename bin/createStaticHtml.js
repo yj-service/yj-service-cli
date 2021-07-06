@@ -8,7 +8,7 @@ const client =require('scp2');
 const ora = require('ora')
 
 module.exports = function createStaticHmtl([input,title="网页标题",output='static']){
-    input = input.replace(/[\./]/,'\\'); 
+    input = input.replace(/[\\./]/,'\\'); 
     global.input = input;
     global.title = title;
     global.output = output
@@ -33,6 +33,7 @@ module.exports = function createStaticHmtl([input,title="网页标题",output='s
             }
         ]).then((answer)=>{
             if(answer.override == '是'){
+                global.override = true
                 renderHtml(inputDir,outDir,true)
             }else{
                 process.exit(-1);
@@ -160,8 +161,11 @@ function uploadServer(){
                             title:global.title,
                             url
                         })
+                        
                         if(index == env.length-1){
-                            fs.writeFileSync(pagesJson,JSON.stringify(old,null,4))
+                            if(!global.override){
+                                fs.writeFileSync(pagesJson,JSON.stringify(old,null,4))
+                            }
                             spinner.text ="上传完成...\n";
                             spinner.succeed();
                         }
