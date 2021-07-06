@@ -6,7 +6,7 @@ module.exports =  {
             port:"22",
             username:"root",
             password:"zRw#7twF8yMuivOf",
-            path:"/usr/local/nginx/html/h5/",
+            path:"/usr/local/nginx/html/h5-static/",
             domin:"https://yjhihis-test.yjhealth.cn"
         },
         pre:{
@@ -14,7 +14,7 @@ module.exports =  {
             port:"22",
             username:"root",
             password:"Y0JELNbLAdeZ",
-            path:"/usr/local/nginx/html/h5/",
+            path:"/usr/local/nginx/html/h5-static/",
             domin:"https://pre-hicrm.healthyj.cn"
         },
         prod:{
@@ -22,7 +22,7 @@ module.exports =  {
             port:"22",
             username:"root",
             password:"A99pF0rC@3sUpE!9pF6",
-            path:"/usr/local/nginx/html/h5/",
+            path:"/usr/local/nginx/html/h5-static/",
             domin:"https://crm.healthyj.cn"
         }
     }
